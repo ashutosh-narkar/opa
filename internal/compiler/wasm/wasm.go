@@ -126,6 +126,7 @@ var builtinsFunctions = map[string]string{
 	ast.NumbersRange.Name:      "opa_numbers_range",
 	ast.ToNumber.Name:          "opa_to_number",
 	ast.WalkBuiltin.Name:       "opa_value_transitive_closure",
+	ast.ReachableBuiltin.Name:  "opa_graph_reachable",
 }
 
 var builtinDispatchers = [...]string{
