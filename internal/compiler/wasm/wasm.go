@@ -62,7 +62,7 @@ const (
 	opaMemoizeGet        = "opa_memoize_get"
 )
 
-var builtinsFunctions = map[string]string{
+var BuiltinsFunctions = map[string]string{
 	ast.Plus.Name:                       "opa_arith_plus",
 	ast.Minus.Name:                      "opa_arith_minus",
 	ast.Multiply.Name:                   "opa_arith_multiply",
@@ -315,7 +315,7 @@ func (c *Compiler) compileStrings() error {
 	c.externalFuncNameAddrs = make(map[string]int32)
 
 	for _, decl := range c.policy.Static.BuiltinFuncs {
-		if _, ok := builtinsFunctions[decl.Name]; !ok {
+		if _, ok := BuiltinsFunctions[decl.Name]; !ok {
 			addr := int32(buf.Len()) + int32(c.stringOffset)
 			buf.WriteString(decl.Name)
 			buf.WriteByte(0)
@@ -373,7 +373,7 @@ func (c *Compiler) compileExternalFuncDecls() error {
 	c.externalFuncs = make(map[string]int32)
 
 	for index, decl := range c.policy.Static.BuiltinFuncs {
-		if _, ok := builtinsFunctions[decl.Name]; !ok {
+		if _, ok := BuiltinsFunctions[decl.Name]; !ok {
 			c.appendInstr(instruction.GetLocal{Index: lobj})
 			c.appendInstr(instruction.I32Const{Value: c.externalFuncNameAddrs[decl.Name]})
 			c.appendInstr(instruction.Call{Index: c.function(opaStringTerminated)})
@@ -1064,7 +1064,7 @@ func (c *Compiler) compileCallStmt(stmt *ir.CallStmt, result *[]instruction.Inst
 
 	fn := stmt.Func
 
-	if name, ok := builtinsFunctions[stmt.Func]; ok {
+	if name, ok := BuiltinsFunctions[stmt.Func]; ok {
 		fn = name
 	}
 

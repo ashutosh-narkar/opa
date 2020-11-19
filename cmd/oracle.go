@@ -17,6 +17,7 @@ import (
 
 	"github.com/open-policy-agent/opa/ast"
 	"github.com/open-policy-agent/opa/bundle"
+	"github.com/open-policy-agent/opa/internal/compiler/wasm"
 	"github.com/open-policy-agent/opa/internal/oracle"
 	"github.com/open-policy-agent/opa/internal/presentation"
 	"github.com/open-policy-agent/opa/loader"
@@ -88,10 +89,25 @@ by the input location.`,
 		},
 	}
 
+	var listWasmBuiltinsCommand = &cobra.Command{
+		Use:   "list-wasm-builtins",
+		Short: "List built-in functions supported natively by OPA-WASM",
+		Run: func(cmd *cobra.Command, args []string) {
+			dolistWasmBuiltins(os.Stdout)
+		},
+	}
+
 	findDefinitionCommand.Flags().BoolVarP(&findDefinitionParams.stdinBuffer, "stdin-buffer", "", false, "read buffer from stdin")
 	addBundleFlag(findDefinitionCommand.Flags(), &findDefinitionParams.bundlePaths)
 	oracleCommand.AddCommand(findDefinitionCommand)
+	oracleCommand.AddCommand(listWasmBuiltinsCommand)
 	RootCommand.AddCommand(oracleCommand)
+}
+
+func dolistWasmBuiltins(out io.Writer) {
+	for _, v := range wasm.BuiltinsFunctions {
+		fmt.Fprintln(out, strings.TrimPrefix(v, "opa_"))
+	}
 }
 
 func dofindDefinition(params findDefinitionParams, stdin io.Reader, stdout io.Writer, args []string) error {
