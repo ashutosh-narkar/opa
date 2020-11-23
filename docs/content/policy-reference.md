@@ -253,7 +253,7 @@ complex types.
 
 ### Comparison
 
-{{% builtins class="bordered" %}}
+{{< builtins class="bordered" >}}
 | Built-in | Description |
 | ------- |-------------|
 | <span class="opa-keep-it-together">``x == y``</span>   | ``x`` is equal to ``y`` |
@@ -262,7 +262,7 @@ complex types.
 | <span class="opa-keep-it-together">``x <= y``</span>   | ``x`` is less than or equal to ``y`` |
 | <span class="opa-keep-it-together">``x > y``</span>   | ``x`` is greater than ``y`` |
 | <span class="opa-keep-it-together">``x >= y``</span>   | ``x`` is greater than or equal to ``y`` |
-{{% /builtins %}}
+{{< /builtins >}}
 
 ### Numbers
 

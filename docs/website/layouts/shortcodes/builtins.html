@@ -1,6 +1,15 @@
-{{ $htmlTable := .Inner | markdownify }}
-{{ $class := .Get "class" }}
-{{ $old := "<table>" }}
-{{ $new := printf "<table class=\"%s\">" $class }}
-{{ $htmlTable = replace $htmlTable $old $new }}
-{{ $htmlTable | safeHTML }}
+{{/*{{ $htmlTable := .Inner | markdownify }}*/}}
+{{/*{{ $class := .Get "class" }}*/}}
+{{/*{{ $old := "<table>" }}*/}}
+{{/*{{ $new := printf "<table class=\"%s\">" $class }}*/}}
+{{/*{{ $htmlTable = replace $htmlTable $old $new }}*/}}
+{{/*{{ $htmlTable | safeHTML }}*/}}
+{{ $rows := .Inner | transform.Unmarshal }}
+
+<table>
+  {{ range $rows }}
+    <tr>
+      {{ range . }} <td>{{ . }}</td> {{ end }}
+    </tr>
+  {{ end }}
+</table>
