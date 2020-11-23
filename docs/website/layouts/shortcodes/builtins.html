@@ -5,11 +5,15 @@
 {{/*{{ $htmlTable = replace $htmlTable $old $new }}*/}}
 {{/*{{ $htmlTable | safeHTML }}*/}}
 
-<table>
+<table class="bordered">
   {{ range .Site.Data.builtins }}
         <tr>
-          <th>.name</th>
-          <th>.inflix</th>
+          <th>Built-in</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>{{.usage}}</td>
+          <td>{{.description}}</td>
         </tr>
   {{ end }}
 </table>

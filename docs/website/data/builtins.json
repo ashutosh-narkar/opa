@@ -1,6 +1,7 @@
 {
   "comparison": {
     "name":  "equal",
-    "inflix": "=="
+    "usage": "x == y",
+    "description": "x is equal to y"
   }
 }
