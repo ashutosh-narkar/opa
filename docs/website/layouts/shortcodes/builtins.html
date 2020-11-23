@@ -4,7 +4,9 @@
 {{/*{{ $new := printf "<table class=\"%s\">" $class }}*/}}
 {{/*{{ $htmlTable = replace $htmlTable $old $new }}*/}}
 {{/*{{ $htmlTable | safeHTML }}*/}}
-{{ $rows := .Inner | transform.Unmarshal }}
+
+{{ $htmlTable := .Inner | markdownify }}
+{{ $rows := $htmlTable | transform.Unmarshal }}
 
 <table>
   {{ range $rows }}
