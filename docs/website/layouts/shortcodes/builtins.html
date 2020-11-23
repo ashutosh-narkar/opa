@@ -5,13 +5,11 @@
 {{/*{{ $htmlTable = replace $htmlTable $old $new }}*/}}
 {{/*{{ $htmlTable | safeHTML }}*/}}
 
-{{ $htmlTable := .Inner | markdownify }}
-{{ $rows := $htmlTable | transform.Unmarshal }}
-
 <table>
-  {{ range $rows }}
-    <tr>
-      {{ range . }} <td>{{ . }}</td> {{ end }}
-    </tr>
+  {{ range .Site.Data.builtins }}
+        <tr>
+          <th>.name</th>
+          <th>.inflix</th>
+        </tr>
   {{ end }}
 </table>
