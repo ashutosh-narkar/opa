@@ -6,16 +6,20 @@
 {{/*{{ $htmlTable | safeHTML }}*/}}
 
 <table class="bordered">
-  {{ range .Site.Data.builtins }}
-        <tr>
-          <th>Built-in</th>
-          <th>Description</th>
-          <th>Wasm Support</th>
-        </tr>
-        <tr>
-          <td span class="opa-keep-it-together"><mark style="color:#008080;background-color:#F8F8F8">{{.usage}}</mark></td>
-          <td span class="opa-keep-it-together"><mark style="color:#008080;background-color:#F8F8F8">{{.description}}</mark></td>
-          <td span class="opa-keep-it-together"><mark style="color:#008080;background-color:#F8F8F8">{{.wasm_support}}</mark></td>
-        </tr>
-  {{ end }}
+  <thead>
+    <tr>
+      <th>Built-in</th>
+      <th>Description</th>
+      <th>Wasm Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ range .Site.Data.builtins }}
+      <tr>
+        <td><span class="opa-keep-it-together"><code>{{.usage}}</code></span></td>
+        <td><span class="opa-keep-it-together">{{.description}}</span></td>
+        <td><span class="opa-keep-it-together"><code>{{.wasm_support}}</code></span></td>
+      </tr>
+    {{ end }}
+  </tbody>
 </table>

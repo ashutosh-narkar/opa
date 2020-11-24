@@ -2,7 +2,7 @@
   "comparison": {
     "name":  "equal",
     "usage": "x == y",
-    "description": "``x`` is equal to ``y``",
+    "description": "<code>x</code> is equal to <code>x</code>y",
     "wasm_support": "Native"
   }
 }
