@@ -10,9 +10,10 @@
   <tbody>
     {{ $builtins := index .Site.Data.builtins $id }}
     {{ range $builtins }}
+      {{ $new_description := replaceRE  "`([^`]*)`" "<code>\1</code>" .description }}
       <tr>
         <td><span class="opa-keep-it-together"><code>{{.usage}}</code></span></td>
-        <td><span class="opa-keep-it-together">{{.description}}</span></td>
+        <td><span class="opa-keep-it-together">$new_description</span></td>
         <td><span class="opa-keep-it-together"><code>{{.wasm_support}}</code></span></td>
       </tr>
     {{ end }}
