@@ -251,9 +251,9 @@ The built-in functions for the language provide basic operations to manipulate
 scalar values (e.g. numbers and strings), and aggregate functions that summarize
 complex types.
 
-### Comparison
+### Comparisons
 
-{{< builtins id="comparison" >}}
+{{< builtins id="comparisons" >}}
 
 | Built-in | Description |
 | ------- |-------------|

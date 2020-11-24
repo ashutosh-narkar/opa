@@ -1,15 +1,39 @@
 {
-  "comparison": [
+  "comparisons": [
     {
-      "name":  "equal",
-      "usage": "x == y",
-      "description": "x is equal to y",
+      "name": "gt",
+      "usage": "x \u003e y",
+      "description": "x is greater than y",
       "wasm_support": "Native"
     },
     {
-      "name":  "neq",
+      "name": "gte",
+      "usage": "x \u003e= y",
+      "description": "x is greater than or equal to y",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "lt",
+      "usage": "x \u003c y",
+      "description": "x is less than y",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "lte",
+      "usage": "x \u003c= y",
+      "description": "x is less than or equal to y",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "neq",
       "usage": "x != y",
       "description": "x is not equal to y",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "equal",
+      "usage": "x == y",
+      "description": "x is equal to y",
       "wasm_support": "Native"
     }
   ]
