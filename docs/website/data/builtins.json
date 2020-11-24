@@ -3,7 +3,7 @@
     {
       "name": "gt",
       "usage": "x \u003e y",
-      "description": "x is greater than y",
+      "description": "`x` is greater than `y`",
       "wasm_support": "Native"
     },
     {
