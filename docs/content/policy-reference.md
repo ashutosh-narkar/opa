@@ -255,27 +255,9 @@ complex types.
 
 {{< builtins id="comparisons" >}}
 
-| Built-in | Description |
-| ------- |-------------|
-| <span class="opa-keep-it-together">``x == y``</span>   | ``x`` is equal to ``y`` |
-| <span class="opa-keep-it-together">``x != y``</span>   | ``x`` is not equal to ``y`` |
-| <span class="opa-keep-it-together">``x < y``</span>   | ``x`` is less than ``y`` |
-| <span class="opa-keep-it-together">``x <= y``</span>   | ``x`` is less than or equal to ``y`` |
-| <span class="opa-keep-it-together">``x > y``</span>   | ``x`` is greater than ``y`` |
-| <span class="opa-keep-it-together">``x >= y``</span>   | ``x`` is greater than or equal to ``y`` |
-
 ### Numbers
 
-| Built-in | Description |
-| ------- |-------------|
-| <span class="opa-keep-it-together">``z := x + y``</span>   | ``z`` is the sum of ``x`` and ``y`` |
-| <span class="opa-keep-it-together">``z := x - y``</span>  | ``z`` is the difference of ``x`` and ``y`` |
-| <span class="opa-keep-it-together">``z := x * y``</span>   | ``z`` is the product of ``x`` and ``y`` |
-| <span class="opa-keep-it-together">``z := x / y``</span>   | ``z`` is the quotient of ``x`` and ``y``  |
-| <span class="opa-keep-it-together">``z := x % y``</span>   | ``z`` is the remainder from the division of ``x`` and ``y``  |
-| <span class="opa-keep-it-together">``output := round(x)``</span>    | ``output`` is ``x`` rounded to the nearest integer |
-| <span class="opa-keep-it-together">``output := abs(x)``</span>    | ``output`` is the absolute value of ``x`` |
-| <span class="opa-keep-it-together">``output := numbers.range(a, b)``</span> | ``output`` is the range of integer numbers between ``a`` and ``b`` (inclusive). If ``a`` == ``b`` then ``output`` == ``[a]``. If ``a`` < ``b`` the range is in ascending order. If ``a`` > ``b`` the range is in descending order. |
+{{< builtins id="numbers" >}}
 
 ### Aggregates
 

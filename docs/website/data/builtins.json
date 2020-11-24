@@ -36,5 +36,55 @@
       "description": "``x`` is equal to ``y``",
       "wasm_support": "Native"
     }
+  ],
+  "numbers": [
+    {
+      "name": "plus",
+      "usage": "z := x + y",
+      "description": "``z`` is the sum of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "minus",
+      "usage": "z := x - y",
+      "description": "``z`` is the difference of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "mul",
+      "usage": "z := x * y",
+      "description": "``z`` is the product of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "div",
+      "usage": "z := x / y",
+      "description": "``z`` is the quotient of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "round",
+      "usage": "output := round(x)",
+      "description": "``output`` is ``x`` rounded to the nearest integer",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "abs",
+      "usage": "output := abs(x)",
+      "description": "``output`` is the absolute value of ``x``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "rem",
+      "usage": "z := x % y",
+      "description": "``z`` is the remainder from the division of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "numbers.range",
+      "usage": "output := numbers.range(a, b)",
+      "description": "``output`` is the range of integer numbers between ``a`` and ``b`` (inclusive). If ``a`` == ``b`` then ``output`` == ``[a]``. If ``a`` \u003c ``b`` the range is in ascending order. If ``a`` \u003e ``b`` the range is in descending order.",
+      "wasm_support": "Native"
+    }
   ]
 }
