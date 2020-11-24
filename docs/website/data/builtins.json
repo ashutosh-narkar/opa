@@ -1,7 +1,7 @@
 {
   "comparison": {
     "name":  "equal",
-    "usage": "``x == y``",
+    "usage": "`x == y`",
     "description": "``x`` is equal to ``y``"
   }
 }
