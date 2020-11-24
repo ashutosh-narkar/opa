@@ -3,7 +3,7 @@
     {
       "name": "gt",
       "usage": "x \u003e y",
-      "description": "<code>x</code> is greater than <code>y</code>",
+      "description": "``x`` is greater than ``y``",
       "wasm_support": "Native"
     },
     {
