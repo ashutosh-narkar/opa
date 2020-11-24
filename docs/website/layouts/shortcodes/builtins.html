@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     {{ $builtins := index .Site.Data.builtins $id }}
-    {{ range $elem_val := $builtins }}
+    {{ range $builtins }}
       <tr>
         <td><span class="opa-keep-it-together"><code>{{.usage}}</code></span></td>
         <td><span class="opa-keep-it-together">{{.description}}</span></td>
