@@ -253,7 +253,7 @@ complex types.
 
 ### Comparison
 
-{{< builtins class="bordered" >}}
+{{< builtins id="comparison" >}}
 
 | Built-in | Description |
 | ------- |-------------|

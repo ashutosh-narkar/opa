@@ -1,5 +1,5 @@
 {{/*{{ $htmlTable := .Inner | markdownify }}*/}}
-{{/*{{ $class := .Get "class" }}*/}}
+{{ $id := .Get "id" }}
 {{/*{{ $old := "<table>" }}*/}}
 {{/*{{ $new := printf "<table class=\"%s\">" $class }}*/}}
 {{/*{{ $htmlTable = replace $htmlTable $old $new }}*/}}
@@ -14,14 +14,13 @@
     </tr>
   </thead>
   <tbody>
-    {{ range $elem_key, $elem_val := $.Site.Data.builtins }}
-      {{ range $elem_val }}
-        <tr>
-          <td><span class="opa-keep-it-together"><code>{{.usage}}</code></span></td>
-          <td><span class="opa-keep-it-together">{{.description}}</span></td>
-          <td><span class="opa-keep-it-together"><code>{{.wasm_support}}</code></span></td>
-        </tr>
-      {{ end }}
+    {{ $builtins := index .Site.Data.builtins $id }}
+    {{ range $elem_val := $builtins }}
+      <tr>
+        <td><span class="opa-keep-it-together"><code>{{.usage}}</code></span></td>
+        <td><span class="opa-keep-it-together">{{.description}}</span></td>
+        <td><span class="opa-keep-it-together"><code>{{.wasm_support}}</code></span></td>
+      </tr>
     {{ end }}
   </tbody>
 </table>
