@@ -49,6 +49,20 @@
       "wasm_support": "Native"
     }
   ],
+  "arrays": [
+    {
+      "name": "array.concat",
+      "usage": "output := array.concat(array, array)",
+      "description": "``output`` is the result of concatenating the two input arrays together",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "array.slice",
+      "usage": "output := array.slice(array, startIndex, stopIndex)",
+      "description": "``output`` is the part of the ``array`` from ``startIndex`` to ``stopIndex`` including the first but excluding the last. If `startIndex \u003e= stopIndex` then `output == []`. If both `startIndex` and `stopIndex` are less than zero, `output == []`. Otherwise, `startIndex` and `stopIndex` are clamped to 0 and `count(array)` respectively",
+      "wasm_support": "Native"
+    }
+  ],
   "comparisons": [
     {
       "name": "gt",
