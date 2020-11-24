@@ -10,10 +10,12 @@
         <tr>
           <th>Built-in</th>
           <th>Description</th>
+          <th>Wasm Support</th>
         </tr>
         <tr>
-          <td span class="opa-keep-it-together">{{.usage}}</td>
-          <td>{{.description}}</td>
+          <td span class="opa-keep-it-together"><mark style="color:#40E0D0;background-color:#F0F0F0">{{.usage}}</mark></td>
+          <td span class="opa-keep-it-together"><mark style="color:#40E0D0;background-color:#F0F0F0">{{.description}}</mark></td>
+          <td span class="opa-keep-it-together"><mark style="color:#40E0D0;background-color:#F0F0F0">{{.wasm_support}}</mark></td>
         </tr>
   {{ end }}
 </table>

@@ -1,7 +1,8 @@
 {
   "comparison": {
     "name":  "equal",
-    "usage": "`x == y`",
-    "description": "``x`` is equal to ``y``"
+    "usage": "x == y",
+    "description": "``x`` is equal to ``y``",
+    "wasm_support": "Native"
   }
 }
