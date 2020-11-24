@@ -1,8 +1,16 @@
 {
-  "comparison": {
-    "name":  "equal",
-    "usage": "x == y",
-    "description": "<code>x</code> is equal to <code>x</code>y",
-    "wasm_support": "Native"
-  }
+  "comparison": [
+    {
+      "name":  "equal",
+      "usage": "x == y",
+      "description": "`x` is equal to `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name":  "neq",
+      "usage": "x != y",
+      "description": "x is not equal to y",
+      "wasm_support": "Native"
+    }
+  ]
 }
