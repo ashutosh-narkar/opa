@@ -12,7 +12,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "numbers",
+      "description": "``output`` is the absolute value of ``x``"
     },
     {
       "name": "all",
@@ -21,16 +23,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "any"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "any"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "any"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -40,7 +42,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is ``true`` if all of the values in ``array_or_set`` are ``true``. A collection of length 0 returns ``true``"
     },
     {
       "name": "and",
@@ -67,6 +71,8 @@
         },
         "type": "function"
       },
+      "family": "sets",
+      "description": "``z`` is the intersection of ``x`` and ``y``",
       "infix": "\u0026"
     },
     {
@@ -76,16 +82,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "any"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "any"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "any"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -95,7 +101,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is ``true`` if any of the values in ``array_or_set`` is ``true``. A collection of length 0 returns ``false``"
     },
     {
       "name": "array.concat",
@@ -121,7 +129,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "arrays",
+      "description": "``output`` is the result of concatenating the two input arrays together"
     },
     {
       "name": "array.slice",
@@ -147,7 +157,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "arrays",
+      "description": "``output`` is the part of the ``array`` starting from index ``x`` to ``y`` including the first index but excluding the last. If `x \u003e= y` then `output == []`. If both `x` and `y` are less than zero, `output == []`. Otherwise, `x` and `y` are clamped to 0 and `count(array)` respectively"
     },
     {
       "name": "assign",
@@ -165,6 +177,8 @@
         },
         "type": "function"
       },
+      "family": "",
+      "description": "",
       "infix": ":="
     },
     {
@@ -179,7 +193,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "base64.encode",
@@ -193,7 +209,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "base64.is_valid",
@@ -207,7 +225,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "base64url.decode",
@@ -221,7 +241,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "base64url.encode",
@@ -235,7 +257,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "base64url.encode_no_pad",
@@ -249,7 +273,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.and",
@@ -266,7 +292,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.lsh",
@@ -283,7 +311,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.negate",
@@ -297,7 +327,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.or",
@@ -314,7 +346,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.rsh",
@@ -331,7 +365,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "bits.xor",
@@ -348,7 +384,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_array",
@@ -365,7 +403,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_boolean",
@@ -379,7 +419,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_null",
@@ -393,7 +435,9 @@
           "type": "null"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_object",
@@ -415,7 +459,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_set",
@@ -432,7 +478,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "cast_string",
@@ -446,7 +494,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "concat",
@@ -458,16 +508,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "string"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "string"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "string"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -477,7 +527,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is the result of joining together the elements of `array_or_set` with the delimiter specified by string `x`"
     },
     {
       "name": "contains",
@@ -494,7 +546,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "true if string `x` contains `y`"
     },
     {
       "name": "count",
@@ -503,16 +557,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "any"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "any"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "any"
+                },
+                "type": "set"
               },
               {
                 "dynamic": {
@@ -536,7 +590,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the length of the array, set, object or string provided as input"
     },
     {
       "name": "crypto.md5",
@@ -550,7 +606,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "crypto.sha1",
@@ -564,7 +622,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "crypto.sha256",
@@ -578,7 +638,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "crypto.x509.parse_certificate_request",
@@ -600,7 +662,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "crypto.x509.parse_certificates",
@@ -625,7 +689,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "div",
@@ -643,6 +709,8 @@
         },
         "type": "function"
       },
+      "family": "numbers",
+      "description": "``z`` is the quotient of ``x`` and ``y``",
       "infix": "/"
     },
     {
@@ -660,7 +728,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "true if string `x` ends with `y`"
     },
     {
       "name": "eq",
@@ -678,6 +748,8 @@
         },
         "type": "function"
       },
+      "family": "",
+      "description": "",
       "infix": "="
     },
     {
@@ -696,6 +768,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is equal to ``y``",
       "infix": "=="
     },
     {
@@ -713,7 +787,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is string representation of number `x` in the given base `y`"
     },
     {
       "name": "glob.match",
@@ -736,7 +812,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "glob.quote_meta",
@@ -750,7 +828,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "graph.reachable",
@@ -806,7 +886,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "gt",
@@ -824,6 +906,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is greater than ``y``",
       "infix": "\u003e"
     },
     {
@@ -842,6 +926,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is greater than or equal to ``y``",
       "infix": "\u003e="
     },
     {
@@ -856,7 +942,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "hex.encode",
@@ -870,7 +958,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "http.send",
@@ -900,7 +990,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "indexof",
@@ -917,7 +1009,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is the index inside string `x` where `y` first occurs, or -1 if `y` does not exist"
     },
     {
       "name": "intersection",
@@ -940,7 +1034,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "sets",
+      "description": "``output`` is the intersection of the sets in the input set"
     },
     {
       "name": "io.jwt.decode",
@@ -981,7 +1077,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.decode_verify",
@@ -1033,7 +1131,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.encode_sign",
@@ -1077,7 +1177,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.encode_sign_raw",
@@ -1097,7 +1199,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_es256",
@@ -1114,7 +1218,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_es384",
@@ -1131,7 +1237,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_es512",
@@ -1148,7 +1256,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_hs256",
@@ -1165,7 +1275,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_hs384",
@@ -1182,7 +1294,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_hs512",
@@ -1199,7 +1313,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_ps256",
@@ -1216,7 +1332,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_ps384",
@@ -1233,7 +1351,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_ps512",
@@ -1250,7 +1370,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_rs256",
@@ -1267,7 +1389,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_rs384",
@@ -1284,7 +1408,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "io.jwt.verify_rs512",
@@ -1301,7 +1427,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_array",
@@ -1315,7 +1443,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_boolean",
@@ -1329,7 +1459,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_null",
@@ -1343,7 +1475,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_number",
@@ -1357,7 +1491,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_object",
@@ -1371,7 +1507,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_set",
@@ -1385,7 +1523,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "is_string",
@@ -1399,7 +1539,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "json.filter",
@@ -1460,7 +1602,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is the remaining data from `object` with only keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"b\": \"x\"}}`). Paths are not filtered in-order and are deduplicated before being evaluated"
     },
     {
       "name": "json.is_valid",
@@ -1474,7 +1618,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "json.marshal",
@@ -1488,7 +1634,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "json.remove",
@@ -1549,7 +1697,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is a new object which is the result of removing all keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.remove({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"c\": \"y\"}}`. Paths are not removed in-order and are deduplicated before being evaluated"
     },
     {
       "name": "json.unmarshal",
@@ -1563,7 +1713,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "lower",
@@ -1577,7 +1729,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is string `x` after converting to lower case"
     },
     {
       "name": "lt",
@@ -1595,6 +1749,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is less than ``y``",
       "infix": "\u003c"
     },
     {
@@ -1613,6 +1769,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is less than or equal to ``y``",
       "infix": "\u003c="
     },
     {
@@ -1622,16 +1780,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "any"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "any"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "any"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -1641,7 +1799,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the maximum value in ``array_or_set``"
     },
     {
       "name": "min",
@@ -1650,16 +1810,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "any"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "any"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "any"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -1669,7 +1829,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the minimum value in ``array_or_set``"
     },
     {
       "name": "minus",
@@ -1720,6 +1882,8 @@
         },
         "type": "function"
       },
+      "family": "numbers",
+      "description": "``z`` is the difference of ``x`` and ``y``",
       "infix": "-"
     },
     {
@@ -1738,6 +1902,8 @@
         },
         "type": "function"
       },
+      "family": "numbers",
+      "description": "``z`` is the product of ``x`` and ``y``",
       "infix": "*"
     },
     {
@@ -1756,6 +1922,8 @@
         },
         "type": "function"
       },
+      "family": "comparisons",
+      "description": "``x`` is not equal to ``y``",
       "infix": "!="
     },
     {
@@ -1773,7 +1941,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "net.cidr_contains_matches",
@@ -1923,7 +2093,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "net.cidr_expand",
@@ -1940,7 +2112,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "net.cidr_intersects",
@@ -1957,7 +2131,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "net.cidr_merge",
@@ -1993,7 +2169,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "net.cidr_overlap",
@@ -2010,7 +2188,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "numbers.range",
@@ -2030,7 +2210,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "numbers",
+      "description": "``output`` is the range of integer numbers between ``x`` and ``y`` (inclusive). If ``x`` == ``y`` then ``output`` == ``[x]``. If ``x`` \u003c ``y`` the range is in ascending order. If ``x`` \u003e ``y`` the range is in descending order."
     },
     {
       "name": "object.filter",
@@ -2080,7 +2262,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is a new object with the remaining data from `object` with only keys specified in `array_or_set_or_object` which is an array, set, or object of keys. For example: `object.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}, \"d\": \"z\"}, [\"a\"])` will result in `{\"a\": {\"b\": \"x\", \"c\": \"y\"}}`)"
     },
     {
       "name": "object.get",
@@ -2108,7 +2292,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is the value stored by the `object` at key `x`. If no value is found, the default value `y` is returned"
     },
     {
       "name": "object.remove",
@@ -2158,7 +2344,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is a new object which is the result of removing the keys specified in `array_or_set_or_object` from `object`. The keys must be either an array, set, or object of keys"
     },
     {
       "name": "object.union",
@@ -2191,7 +2379,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "objects",
+      "description": "`output` is a new object which is the result of an asymmetric recursive union of two objects where conflicts are resolved by choosing the key from the right-hand object. For example: `object.union({\"a\": 1, \"b\": 2, \"c\": {\"d\": 3}}, {\"a\": 7, \"c\": {\"d\": 4, \"e\": 5}})` will result in `{\"a\": 7, \"b\": 2, \"c\": {\"d\": 4, \"e\": 5}}`"
     },
     {
       "name": "opa.runtime",
@@ -2208,7 +2398,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "or",
@@ -2235,6 +2427,8 @@
         },
         "type": "function"
       },
+      "family": "sets",
+      "description": "``z`` is the union of ``x`` and ``y``",
       "infix": "|"
     },
     {
@@ -2253,6 +2447,8 @@
         },
         "type": "function"
       },
+      "family": "numbers",
+      "description": "``z`` is the sum of ``x`` and ``y``",
       "infix": "+"
     },
     {
@@ -2262,16 +2458,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "number"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "number"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "number"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -2281,7 +2477,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the product of the numbers in ``array_or_set``"
     },
     {
       "name": "re_match",
@@ -2298,7 +2496,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.find_all_string_submatch_n",
@@ -2324,7 +2524,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.find_n",
@@ -2347,7 +2549,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.globs_match",
@@ -2364,7 +2568,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.is_valid",
@@ -2378,7 +2584,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.match",
@@ -2395,7 +2603,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.split",
@@ -2415,7 +2625,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "regex.template_match",
@@ -2438,7 +2650,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "rego.parse_module",
@@ -2463,7 +2677,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "rem",
@@ -2481,6 +2697,8 @@
         },
         "type": "function"
       },
+      "family": "numbers",
+      "description": "``z`` is the remainder from the division of ``x`` and ``y``",
       "infix": "%"
     },
     {
@@ -2501,7 +2719,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a `string` representing string `x` with all instances of `y` replaced by `z`"
     },
     {
       "name": "round",
@@ -2515,7 +2735,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "numbers",
+      "description": "``output`` is ``x`` rounded to the nearest integer"
     },
     {
       "name": "semver.compare",
@@ -2532,7 +2754,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "semver.is_valid",
@@ -2546,7 +2770,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "set_diff",
@@ -2572,7 +2798,10 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "sets",
+      "description": "``z`` is the difference between ``x`` and ``y``, i.e., the elements in ``x`` that are not in ``y``",
+      "infix": "-"
     },
     {
       "name": "sort",
@@ -2603,7 +2832,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the sorted ``array`` containing elements from ``array_or_set``"
     },
     {
       "name": "split",
@@ -2623,7 +2854,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is `array[string]` representing elements of string `x` separated by delimiter `y`"
     },
     {
       "name": "sprintf",
@@ -2643,7 +2876,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a string representing string `x` formatted by the values in `array`"
     },
     {
       "name": "startswith",
@@ -2660,7 +2895,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "true if string `x` begins with `y`"
     },
     {
       "name": "strings.replace_n",
@@ -2685,7 +2922,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`object` is an object with old, new string key value pairs (e.g. {\"old1\": \"new1\", \"old2\": \"new2\", ...}). `output` is a `string` with all old strings inside `object` replaced by the new strings"
     },
     {
       "name": "substring",
@@ -2705,7 +2944,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is the portion of string `x` from index `y` and having a length of `z`. If `z` is less than zero, `z` is the remainder of the string. If index `y` is greater than the length of the string, `output` is empty. It is invalid to pass a negative offset to this function."
     },
     {
       "name": "sum",
@@ -2714,16 +2955,16 @@
           {
             "of": [
               {
-                "of": {
-                  "type": "number"
-                },
-                "type": "set"
-              },
-              {
                 "dynamic": {
                   "type": "number"
                 },
                 "type": "array"
+              },
+              {
+                "of": {
+                  "type": "number"
+                },
+                "type": "set"
               }
             ],
             "type": "any"
@@ -2733,7 +2974,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "aggregates",
+      "description": "``output`` is the sum of the numbers in ``array_or_set``"
     },
     {
       "name": "time.add_date",
@@ -2756,7 +2999,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.clock",
@@ -2797,7 +3042,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.date",
@@ -2838,7 +3085,9 @@
           "type": "array"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.now_ns",
@@ -2847,7 +3096,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.parse_duration_ns",
@@ -2861,7 +3112,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.parse_ns",
@@ -2878,7 +3131,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.parse_rfc3339_ns",
@@ -2892,7 +3147,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "time.weekday",
@@ -2922,7 +3179,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "to_number",
@@ -2950,7 +3209,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "trace",
@@ -2964,7 +3225,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "trim",
@@ -2981,7 +3244,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a string representing string `x` with all leading and trailing instances of the characters in `y` removed"
     },
     {
       "name": "trim_left",
@@ -2998,7 +3263,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a string representing string `x` with all leading instances of the characters in `y` removed"
     },
     {
       "name": "trim_prefix",
@@ -3015,7 +3282,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a `string` representing string `x` with leading instance of prefix `y` removed. If `x` doesn't start with `y`, `x` is returned unchanged"
     },
     {
       "name": "trim_right",
@@ -3032,7 +3301,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a string representing string `x` with all trailing instances of the characters in `y` removed"
     },
     {
       "name": "trim_space",
@@ -3046,7 +3317,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a `string` representing string `x` with all leading and trailing white space removed"
     },
     {
       "name": "trim_suffix",
@@ -3063,7 +3336,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is a `string` representing string `x` with trailing instance of suffix `y` removed. If `x` doesn't end with `y`, `x` is returned unchanged"
     },
     {
       "name": "type_name",
@@ -3082,7 +3357,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "union",
@@ -3105,7 +3382,9 @@
           "type": "set"
         },
         "type": "function"
-      }
+      },
+      "family": "sets",
+      "description": "``output`` is the union of the sets in the input set"
     },
     {
       "name": "units.parse_bytes",
@@ -3119,7 +3398,9 @@
           "type": "number"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "upper",
@@ -3133,7 +3414,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "strings",
+      "description": "`output` is string `x` after converting to upper case"
     },
     {
       "name": "urlquery.decode",
@@ -3147,7 +3430,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "urlquery.decode_object",
@@ -3172,7 +3457,9 @@
           "type": "object"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "urlquery.encode",
@@ -3186,7 +3473,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "urlquery.encode_object",
@@ -3225,7 +3514,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "uuid.rfc4122",
@@ -3239,7 +3530,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "walk",
@@ -3265,6 +3558,8 @@
         },
         "type": "function"
       },
+      "family": "",
+      "description": "",
       "relation": true
     },
     {
@@ -3279,7 +3574,9 @@
           "type": "boolean"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "yaml.marshal",
@@ -3293,7 +3590,9 @@
           "type": "string"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     },
     {
       "name": "yaml.unmarshal",
@@ -3307,7 +3606,9 @@
           "type": "any"
         },
         "type": "function"
-      }
+      },
+      "family": "",
+      "description": ""
     }
   ]
 }

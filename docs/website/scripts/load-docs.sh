@@ -139,6 +139,3 @@ ln -s ../../../content ${ROOT_DIR}/docs/website/generated/docs/edge
 
 # Create a "latest" version from the latest semver found
 ln -s ${ROOT_DIR}/docs/website/generated/docs/${RELEASES[0]} ${ROOT_DIR}/docs/website/generated/docs/latest
-
-echo "Creating the builtins data"
-GO111MODULE=on GOFLAGS=-mod=vendor go run ${ROOT_DIR}/internal/cmd/genopabuiltins/main.go ${ROOT_DIR}/docs/website/data/builtins.json

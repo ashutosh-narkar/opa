@@ -46,9 +46,9 @@ var DefaultBuiltins = [...]*Builtin{
 	Minus,
 	Multiply,
 	Divide,
+	Rem,
 	Round,
 	Abs,
-	Rem,
 
 	// Bitwise Arithmetic
 	BitsOr,
@@ -103,14 +103,14 @@ var DefaultBuiltins = [...]*Builtin{
 
 	// Strings
 	Concat,
+	Contains,
+	StartsWith,
+	EndsWith,
 	FormatInt,
 	IndexOf,
 	Substring,
 	Lower,
 	Upper,
-	Contains,
-	StartsWith,
-	EndsWith,
 	Split,
 	Replace,
 	ReplaceN,
@@ -146,10 +146,10 @@ var DefaultBuiltins = [...]*Builtin{
 	HexDecode,
 
 	// Object Manipulation
-	ObjectUnion,
-	ObjectRemove,
-	ObjectFilter,
 	ObjectGet,
+	ObjectRemove,
+	ObjectUnion,
+	ObjectFilter,
 
 	// JSON Object Manipulation
 	JSONFilter,
@@ -289,62 +289,74 @@ var Assign = &Builtin{
 
 // GreaterThan represents the ">" comparison operator.
 var GreaterThan = &Builtin{
-	Name:  "gt",
-	Infix: ">",
+	Name: "gt",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is greater than ``y``",
+	Infix:       ">",
 }
 
 // GreaterThanEq represents the ">=" comparison operator.
 var GreaterThanEq = &Builtin{
-	Name:  "gte",
-	Infix: ">=",
+	Name: "gte",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is greater than or equal to ``y``",
+	Infix:       ">=",
 }
 
 // LessThan represents the "<" comparison operator.
 var LessThan = &Builtin{
-	Name:  "lt",
-	Infix: "<",
+	Name: "lt",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is less than ``y``",
+	Infix:       "<",
 }
 
 // LessThanEq represents the "<=" comparison operator.
 var LessThanEq = &Builtin{
-	Name:  "lte",
-	Infix: "<=",
+	Name: "lte",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is less than or equal to ``y``",
+	Infix:       "<=",
 }
 
 // NotEqual represents the "!=" comparison operator.
 var NotEqual = &Builtin{
-	Name:  "neq",
-	Infix: "!=",
+	Name: "neq",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is not equal to ``y``",
+	Infix:       "!=",
 }
 
 // Equal represents the "==" comparison operator.
 var Equal = &Builtin{
-	Name:  "equal",
-	Infix: "==",
+	Name: "equal",
 	Decl: types.NewFunction(
 		types.Args(types.A, types.A),
 		types.B,
 	),
+	Family:      "comparisons",
+	Description: "``x`` is equal to ``y``",
+	Infix:       "==",
 }
 
 /**
@@ -353,19 +365,20 @@ var Equal = &Builtin{
 
 // Plus adds two numbers together.
 var Plus = &Builtin{
-	Name:  "plus",
-	Infix: "+",
+	Name: "plus",
 	Decl: types.NewFunction(
 		types.Args(types.N, types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``z`` is the sum of ``x`` and ``y``",
+	Infix:       "+",
 }
 
 // Minus subtracts the second number from the first number or computes the diff
 // between two sets.
 var Minus = &Builtin{
-	Name:  "minus",
-	Infix: "-",
+	Name: "minus",
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(types.N, types.NewSet(types.A)),
@@ -373,26 +386,33 @@ var Minus = &Builtin{
 		),
 		types.NewAny(types.N, types.NewSet(types.A)),
 	),
+	Family:      "numbers",
+	Description: "``z`` is the difference of ``x`` and ``y``",
+	Infix:       "-",
 }
 
 // Multiply multiplies two numbers together.
 var Multiply = &Builtin{
-	Name:  "mul",
-	Infix: "*",
+	Name: "mul",
 	Decl: types.NewFunction(
 		types.Args(types.N, types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``z`` is the product of ``x`` and ``y``",
+	Infix:       "*",
 }
 
 // Divide divides the first number by the second number.
 var Divide = &Builtin{
-	Name:  "div",
-	Infix: "/",
+	Name: "div",
 	Decl: types.NewFunction(
 		types.Args(types.N, types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``z`` is the quotient of ``x`` and ``y``",
+	Infix:       "/",
 }
 
 // Round rounds the number up to the nearest integer.
@@ -402,6 +422,8 @@ var Round = &Builtin{
 		types.Args(types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``output`` is ``x`` rounded to the nearest integer",
 }
 
 // Abs returns the number without its sign.
@@ -411,16 +433,20 @@ var Abs = &Builtin{
 		types.Args(types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``output`` is the absolute value of ``x``",
 }
 
 // Rem returns the remainder for x%y for y != 0.
 var Rem = &Builtin{
-	Name:  "rem",
-	Infix: "%",
+	Name: "rem",
 	Decl: types.NewFunction(
 		types.Args(types.N, types.N),
 		types.N,
 	),
+	Family:      "numbers",
+	Description: "``z`` is the remainder from the division of ``x`` and ``y``",
+	Infix:       "%",
 }
 
 /**
@@ -490,8 +516,7 @@ var BitsShiftRight = &Builtin{
 
 // And performs an intersection operation on sets.
 var And = &Builtin{
-	Name:  "and",
-	Infix: "&",
+	Name: "and",
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewSet(types.A),
@@ -499,12 +524,14 @@ var And = &Builtin{
 		),
 		types.NewSet(types.A),
 	),
+	Family:      "sets",
+	Description: "``z`` is the intersection of ``x`` and ``y``",
+	Infix:       "&",
 }
 
 // Or performs a union operation on sets.
 var Or = &Builtin{
-	Name:  "or",
-	Infix: "|",
+	Name: "or",
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewSet(types.A),
@@ -512,6 +539,9 @@ var Or = &Builtin{
 		),
 		types.NewSet(types.A),
 	),
+	Family:      "sets",
+	Description: "``z`` is the union of ``x`` and ``y``",
+	Infix:       "|",
 }
 
 /**
@@ -524,14 +554,16 @@ var Count = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.A),
 				types.NewArray(nil, types.A),
+				types.NewSet(types.A),
 				types.NewObject(nil, types.NewDynamicProperty(types.A, types.A)),
 				types.S,
 			),
 		),
 		types.N,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the length of the array, set, object or string provided as input",
 }
 
 // Sum takes an array or set of numbers and sums them.
@@ -540,12 +572,14 @@ var Sum = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.N),
 				types.NewArray(nil, types.N),
+				types.NewSet(types.N),
 			),
 		),
 		types.N,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the sum of the numbers in ``array_or_set``",
 }
 
 // Product takes an array or set of numbers and multiplies them.
@@ -554,12 +588,14 @@ var Product = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.N),
 				types.NewArray(nil, types.N),
+				types.NewSet(types.N),
 			),
 		),
 		types.N,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the product of the numbers in ``array_or_set``",
 }
 
 // Max returns the maximum value in a collection.
@@ -568,12 +604,14 @@ var Max = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.A),
 				types.NewArray(nil, types.A),
+				types.NewSet(types.A),
 			),
 		),
 		types.A,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the maximum value in ``array_or_set``",
 }
 
 // Min returns the minimum value in a collection.
@@ -582,12 +620,14 @@ var Min = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.A),
 				types.NewArray(nil, types.A),
+				types.NewSet(types.A),
 			),
 		),
 		types.A,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the minimum value in ``array_or_set``",
 }
 
 // All takes a list and returns true if all of the items
@@ -597,12 +637,14 @@ var All = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.A),
 				types.NewArray(nil, types.A),
+				types.NewSet(types.A),
 			),
 		),
 		types.B,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is ``true`` if all of the values in ``array_or_set`` are ``true``. A collection of length 0 returns ``true``",
 }
 
 // Any takes a collection and returns true if any of the items
@@ -612,12 +654,14 @@ var Any = &Builtin{
 	Decl: types.NewFunction(
 		types.Args(
 			types.NewAny(
-				types.NewSet(types.A),
 				types.NewArray(nil, types.A),
+				types.NewSet(types.A),
 			),
 		),
 		types.B,
 	),
+	Family:      "aggregates",
+	Description: "``output`` is ``true`` if any of the values in ``array_or_set`` is ``true``. A collection of length 0 returns ``false``",
 }
 
 /**
@@ -634,6 +678,8 @@ var ArrayConcat = &Builtin{
 		),
 		types.NewArray(nil, types.A),
 	),
+	Family:      "arrays",
+	Description: "``output`` is the result of concatenating the two input arrays together",
 }
 
 // ArraySlice returns a slice of a given array
@@ -647,6 +693,8 @@ var ArraySlice = &Builtin{
 		),
 		types.NewArray(nil, types.A),
 	),
+	Family:      "arrays",
+	Description: "``output`` is the part of the ``array`` starting from index ``x`` to ``y`` including the first index but excluding the last. If `x >= y` then `output == []`. If both `x` and `y` are less than zero, `output == []`. Otherwise, `x` and `y` are clamped to 0 and `count(array)` respectively",
 }
 
 /**
@@ -782,12 +830,14 @@ var Concat = &Builtin{
 		types.Args(
 			types.S,
 			types.NewAny(
-				types.NewSet(types.S),
 				types.NewArray(nil, types.S),
+				types.NewSet(types.S),
 			),
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is the result of joining together the elements of `array_or_set` with the delimiter specified by string `x`",
 }
 
 // FormatInt returns the string representation of the number in the given base after converting it to an integer value.
@@ -800,6 +850,8 @@ var FormatInt = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is string representation of number `x` in the given base `y`",
 }
 
 // IndexOf returns the index of a substring contained inside a string
@@ -812,6 +864,8 @@ var IndexOf = &Builtin{
 		),
 		types.N,
 	),
+	Family:      "strings",
+	Description: "`output` is the index inside string `x` where `y` first occurs, or -1 if `y` does not exist",
 }
 
 // Substring returns the portion of a string for a given start index and a length.
@@ -826,6 +880,8 @@ var Substring = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is the portion of string `x` from index `y` and having a length of `z`. If `z` is less than zero, `z` is the remainder of the string. If index `y` is greater than the length of the string, `output` is empty. It is invalid to pass a negative offset to this function.",
 }
 
 // Contains returns true if the search string is included in the base string
@@ -838,6 +894,8 @@ var Contains = &Builtin{
 		),
 		types.B,
 	),
+	Family:      "strings",
+	Description: "true if string `x` contains `y`",
 }
 
 // StartsWith returns true if the search string begins with the base string
@@ -850,6 +908,8 @@ var StartsWith = &Builtin{
 		),
 		types.B,
 	),
+	Family:      "strings",
+	Description: "true if string `x` begins with `y`",
 }
 
 // EndsWith returns true if the search string begins with the base string
@@ -862,6 +922,8 @@ var EndsWith = &Builtin{
 		),
 		types.B,
 	),
+	Family:      "strings",
+	Description: "true if string `x` ends with `y`",
 }
 
 // Lower returns the input string but with all characters in lower-case
@@ -871,6 +933,8 @@ var Lower = &Builtin{
 		types.Args(types.S),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is string `x` after converting to lower case",
 }
 
 // Upper returns the input string but with all characters in upper-case
@@ -880,6 +944,8 @@ var Upper = &Builtin{
 		types.Args(types.S),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is string `x` after converting to upper case",
 }
 
 // Split returns an array containing elements of the input string split on a delimiter.
@@ -892,6 +958,8 @@ var Split = &Builtin{
 		),
 		types.NewArray(nil, types.S),
 	),
+	Family:      "strings",
+	Description: "`output` is `array[string]` representing elements of string `x` separated by delimiter `y`",
 }
 
 // Replace returns the given string with all instances of the second argument replaced
@@ -906,6 +974,8 @@ var Replace = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a `string` representing string `x` with all instances of `y` replaced by `z`",
 }
 
 // ReplaceN replaces a string from a list of old, new string pairs.
@@ -924,6 +994,8 @@ var ReplaceN = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`object` is an object with old, new string key value pairs (e.g. {\"old1\": \"new1\", \"old2\": \"new2\", ...}). `output` is a `string` with all old strings inside `object` replaced by the new strings",
 }
 
 // Trim returns the given string with all leading or trailing instances of the second
@@ -937,6 +1009,8 @@ var Trim = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a string representing string `x` with all leading and trailing instances of the characters in `y` removed",
 }
 
 // TrimLeft returns the given string with all leading instances of second argument removed.
@@ -949,6 +1023,8 @@ var TrimLeft = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a string representing string `x` with all leading instances of the characters in `y` removed",
 }
 
 // TrimPrefix returns the given string without the second argument prefix string.
@@ -962,6 +1038,8 @@ var TrimPrefix = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a `string` representing string `x` with leading instance of prefix `y` removed. If `x` doesn't start with `y`, `x` is returned unchanged",
 }
 
 // TrimRight returns the given string with all trailing instances of second argument removed.
@@ -974,6 +1052,8 @@ var TrimRight = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a string representing string `x` with all trailing instances of the characters in `y` removed",
 }
 
 // TrimSuffix returns the given string without the second argument suffix string.
@@ -987,6 +1067,8 @@ var TrimSuffix = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a `string` representing string `x` with trailing instance of suffix `y` removed. If `x` doesn't end with `y`, `x` is returned unchanged",
 }
 
 // TrimSpace return the given string with all leading and trailing white space removed.
@@ -998,6 +1080,8 @@ var TrimSpace = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a `string` representing string `x` with all leading and trailing white space removed",
 }
 
 // Sprintf returns the given string, formatted.
@@ -1010,6 +1094,8 @@ var Sprintf = &Builtin{
 		),
 		types.S,
 	),
+	Family:      "strings",
+	Description: "`output` is a string representing string `x` formatted by the values in `array`",
 }
 
 /**
@@ -1026,6 +1112,8 @@ var NumbersRange = &Builtin{
 		),
 		types.NewArray(nil, types.N),
 	),
+	Family:      "numbers",
+	Description: "``output`` is the range of integer numbers between ``x`` and ``y`` (inclusive). If ``x`` == ``y`` then ``output`` == ``[x]``. If ``x`` < ``y`` the range is in ascending order. If ``x`` > ``y`` the range is in descending order.",
 }
 
 /**
@@ -1122,6 +1210,8 @@ var JSONFilter = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is the remaining data from `object` with only keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"b\": \"x\"}}`). Paths are not filtered in-order and are deduplicated before being evaluated",
 }
 
 // JSONRemove removes paths in the JSON object
@@ -1157,6 +1247,8 @@ var JSONRemove = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is a new object which is the result of removing all keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.remove({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"c\": \"y\"}}`. Paths are not removed in-order and are deduplicated before being evaluated",
 }
 
 // ObjectGet returns takes an object and returns a value under its key if
@@ -1171,6 +1263,8 @@ var ObjectGet = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is the value stored by the `object` at key `x`. If no value is found, the default value `y` is returned",
 }
 
 // ObjectUnion creates a new object that is the asymmetric union of two objects
@@ -1189,6 +1283,8 @@ var ObjectUnion = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is a new object which is the result of an asymmetric recursive union of two objects where conflicts are resolved by choosing the key from the right-hand object. For example: `object.union({\"a\": 1, \"b\": 2, \"c\": {\"d\": 3}}, {\"a\": 7, \"c\": {\"d\": 4, \"e\": 5}})` will result in `{\"a\": 7, \"b\": 2, \"c\": {\"d\": 4, \"e\": 5}}`",
 }
 
 // ObjectRemove Removes specified keys from an object
@@ -1208,6 +1304,8 @@ var ObjectRemove = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is a new object which is the result of removing the keys specified in `array_or_set_or_object` from `object`. The keys must be either an array, set, or object of keys",
 }
 
 // ObjectFilter filters the object by keeping only specified keys
@@ -1227,6 +1325,8 @@ var ObjectFilter = &Builtin{
 		),
 		types.A,
 	),
+	Family:      "objects",
+	Description: "`output` is a new object with the remaining data from `object` with only keys specified in `array_or_set_or_object` which is an array, set, or object of keys. For example: `object.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}, \"d\": \"z\"}, [\"a\"])` will result in `{\"a\": {\"b\": \"x\", \"c\": \"y\"}}`)",
 }
 
 // Base64Encode serializes the input string into base64 encoding.
@@ -1788,6 +1888,8 @@ var Sort = &Builtin{
 		),
 		types.NewArray(nil, types.A),
 	),
+	Family:      "aggregates",
+	Description: "``output`` is the sorted ``array`` containing elements from ``array_or_set``",
 }
 
 /**
@@ -1962,6 +2064,8 @@ var Intersection = &Builtin{
 		),
 		types.NewSet(types.A),
 	),
+	Family:      "sets",
+	Description: "``output`` is the intersection of the sets in the input set",
 }
 
 // Union returns the union of the given input sets
@@ -1973,6 +2077,8 @@ var Union = &Builtin{
 		),
 		types.NewSet(types.A),
 	),
+	Family:      "sets",
+	Description: "``output`` is the union of the sets in the input set",
 }
 
 /**
@@ -2128,6 +2234,9 @@ var SetDiff = &Builtin{
 		),
 		types.NewSet(types.A),
 	),
+	Family:      "sets",
+	Description: "``z`` is the difference between ``x`` and ``y``, i.e., the elements in ``x`` that are not in ``y``",
+	Infix:       "-",
 }
 
 // NetCIDROverlap has been replaced by the `net.cidr_contains` built-in.
@@ -2216,10 +2325,12 @@ var RegexMatchDeprecated = &Builtin{
 // Builtin represents a built-in function supported by OPA. Every built-in
 // function is uniquely identified by a name.
 type Builtin struct {
-	Name     string          `json:"name"`               // Unique name of built-in function, e.g., <name>(arg1,arg2,...,argN)
-	Decl     *types.Function `json:"decl"`               // Built-in function type declaration.
-	Infix    string          `json:"infix,omitempty"`    // Unique name of infix operator. Default should be unset.
-	Relation bool            `json:"relation,omitempty"` // Indicates if the built-in acts as a relation.
+	Name        string          `json:"name"`               // Unique name of built-in function, e.g., <name>(arg1,arg2,...,argN)
+	Decl        *types.Function `json:"decl"`               // Built-in function type declaration.
+	Family      string          `json:"family"`             // Indicates the family to which the built-in function belongs.
+	Description string          `json:"description"`        // Built-in function description.
+	Infix       string          `json:"infix,omitempty"`    // Unique name of infix operator. Default should be unset.
+	Relation    bool            `json:"relation,omitempty"` // Indicates if the built-in acts as a relation.
 }
 
 // Expr creates a new expression for the built-in with the given operands.
