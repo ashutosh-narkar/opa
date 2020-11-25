@@ -2,43 +2,43 @@
   "aggregates": [
     {
       "name": "count",
-      "usage": "output := count(set_or_array_or_object_or_string)",
-      "description": "``output`` is the length of the object, array, set, or string provided as input",
+      "usage": "output := count(array_or_set_or_object_or_string)",
+      "description": "``output`` is the length of the array, set, object or string provided as input",
       "wasm_support": "Native"
     },
     {
       "name": "sum",
-      "usage": "output := sum(set_or_array)",
+      "usage": "output := sum(array_or_set)",
       "description": "``output`` is the sum of the numbers in ``array_or_set``",
       "wasm_support": "Native"
     },
     {
       "name": "product",
-      "usage": "output := product(set_or_array)",
+      "usage": "output := product(array_or_set)",
       "description": "``output`` is the product of the numbers in ``array_or_set``",
       "wasm_support": "Native"
     },
     {
       "name": "max",
-      "usage": "output := max(set_or_array)",
+      "usage": "output := max(array_or_set)",
       "description": "``output`` is the maximum value in ``array_or_set``",
       "wasm_support": "Native"
     },
     {
       "name": "min",
-      "usage": "output := min(set_or_array)",
+      "usage": "output := min(array_or_set)",
       "description": "``output`` is the minimum value in ``array_or_set``",
       "wasm_support": "Native"
     },
     {
       "name": "any",
-      "usage": "output := any(set_or_array)",
+      "usage": "output := any(array_or_set)",
       "description": "``output`` is ``true`` if any of the values in ``array_or_set`` is ``true``. A collection of length 0 returns ``false``",
       "wasm_support": "Native"
     },
     {
       "name": "all",
-      "usage": "output := all(set_or_array)",
+      "usage": "output := all(array_or_set)",
       "description": "``output`` is ``true`` if all of the values in ``array_or_set`` are ``true``. A collection of length 0 returns ``true``",
       "wasm_support": "Native"
     },
