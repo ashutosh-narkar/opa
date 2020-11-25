@@ -14,7 +14,7 @@ ROOT_DIR=$(git rev-parse --show-toplevel)
 RELEASES_YAML_FILE=${ROOT_DIR}/docs/website/data/releases.yaml
 GIT_VERSION=$(git --version)
 
-GO := GO111MODULE=on GOFLAGS=-mod=vendor go
+GO=$(GO111MODULE=on GOFLAGS=-mod=vendor go)
 
 # Look at the git tags and generate a list of releases
 # that we want to show docs for.
@@ -143,4 +143,4 @@ ln -s ../../../content ${ROOT_DIR}/docs/website/generated/docs/edge
 ln -s ${ROOT_DIR}/docs/website/generated/docs/${RELEASES[0]} ${ROOT_DIR}/docs/website/generated/docs/latest
 
 echo "Creating the builtins data"
-$(GO) run ${ROOT_DIR}/internal/cmd/genopabuiltins/main.go ${ROOT_DIR}/docs/website/data/builtins.json
+${GO} run ${ROOT_DIR}/internal/cmd/genopabuiltins/main.go ${ROOT_DIR}/docs/website/data/builtins.json
