@@ -59,7 +59,7 @@
     {
       "name": "array.slice",
       "usage": "output := array.slice(array, x, y)",
-      "description": "``output`` is the part of the ``array`` from ``startIndex`` to ``stopIndex`` including the first but excluding the last. If `startIndex \u003e= stopIndex` then `output == []`. If both `startIndex` and `stopIndex` are less than zero, `output == []`. Otherwise, `startIndex` and `stopIndex` are clamped to 0 and `count(array)` respectively",
+      "description": "``output`` is the part of the ``array`` starting from index ``x`` to ``y`` including the first index but excluding the last. If `x \u003e= y` then `output == []`. If both `x` and `y` are less than zero, `output == []`. Otherwise, `x` and `y` are clamped to 0 and `count(array)` respectively",
       "wasm_support": "Native"
     }
   ],
@@ -127,6 +127,12 @@
       "wasm_support": "Native"
     },
     {
+      "name": "rem",
+      "usage": "z := x % y",
+      "description": "``z`` is the remainder from the division of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
       "name": "round",
       "usage": "output := round(x)",
       "description": "``output`` is ``x`` rounded to the nearest integer",
@@ -139,15 +145,41 @@
       "wasm_support": "Native"
     },
     {
-      "name": "rem",
-      "usage": "z := x % y",
-      "description": "``z`` is the remainder from the division of ``x`` and ``y``",
+      "name": "numbers.range",
+      "usage": "output := numbers.range(x, y)",
+      "description": "``output`` is the range of integer numbers between ``x`` and ``y`` (inclusive). If ``x`` == ``y`` then ``output`` == ``[x]``. If ``x`` \u003c ``y`` the range is in ascending order. If ``x`` \u003e ``y`` the range is in descending order.",
+      "wasm_support": "Native"
+    }
+  ],
+  "sets": [
+    {
+      "name": "and",
+      "usage": "z := x \u0026 y",
+      "description": "``z`` is the intersection of ``x`` and ``y``",
       "wasm_support": "Native"
     },
     {
-      "name": "numbers.range",
-      "usage": "output := numbers.range(x, y)",
-      "description": "``output`` is the range of integer numbers between ``a`` and ``b`` (inclusive). If ``a`` == ``b`` then ``output`` == ``[a]``. If ``a`` \u003c ``b`` the range is in ascending order. If ``a`` \u003e ``b`` the range is in descending order.",
+      "name": "or",
+      "usage": "z := x | y",
+      "description": "``z`` is the union of ``x`` and ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "set_diff",
+      "usage": "z := x - y",
+      "description": "``z`` is the difference between ``x`` and ``y``, i.e., the elements in ``x`` that are not in ``y``",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "intersection",
+      "usage": "output := intersection(set)",
+      "description": "``output`` is the intersection of the sets in the input set",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "union",
+      "usage": "output := union(set)",
+      "description": "``output`` is the union of the sets in the input set",
       "wasm_support": "Native"
     }
   ]
