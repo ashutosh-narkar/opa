@@ -32,13 +32,13 @@
     },
     {
       "name": "any",
-      "usage": "output := any(array_or_set)",
+      "usage": "any(array_or_set)",
       "description": "``output`` is ``true`` if any of the values in ``array_or_set`` is ``true``. A collection of length 0 returns ``false``",
       "wasm_support": "Native"
     },
     {
       "name": "all",
-      "usage": "output := all(array_or_set)",
+      "usage": "all(array_or_set)",
       "description": "``output`` is ``true`` if all of the values in ``array_or_set`` are ``true``. A collection of length 0 returns ``true``",
       "wasm_support": "Native"
     },
@@ -219,6 +219,122 @@
       "usage": "output := union(set)",
       "description": "``output`` is the union of the sets in the input set",
       "wasm_support": "Native"
+    }
+  ],
+  "strings": [
+    {
+      "name": "concat",
+      "usage": "output := concat(x, array_or_set)",
+      "description": "`output` is the result of joining together the elements of `array_or_set` with the delimiter specified by string `x`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "contains",
+      "usage": "contains(x, y)",
+      "description": "true if string `x` contains `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "startswith",
+      "usage": "startswith(x, y)",
+      "description": "true if string `x` begins with `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "endswith",
+      "usage": "endswith(x, y)",
+      "description": "true if string `x` ends with `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "format_int",
+      "usage": "output := format_int(x, y)",
+      "description": "`output` is string representation of number `x` in the given base `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "indexof",
+      "usage": "output := indexof(x, y)",
+      "description": "`output` is the index inside string `x` where `y` first occurs, or -1 if `y` does not exist",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "substring",
+      "usage": "output := substring(x, y, z)",
+      "description": "`output` is the portion of string `x` from index `y` and having a length of `z`. If `z` is less than zero, `z` is the remainder of the string. If index `y` is greater than the length of the string, `output` is empty. It is invalid to pass a negative offset to this function.",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "lower",
+      "usage": "output := lower(x)",
+      "description": "`output` is string `x` after converting to lower case",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "upper",
+      "usage": "output := upper(x)",
+      "description": "`output` is string `x` after converting to upper case",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "split",
+      "usage": "output := split(x, y)",
+      "description": "`output` is `array[string]` representing elements of string `x` separated by delimiter `y`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "replace",
+      "usage": "output := replace(x, y, z)",
+      "description": "`output` is a `string` representing string `x` with all instances of `y` replaced by `z`",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "strings.replace_n",
+      "usage": "output := strings.replace_n(object, x)",
+      "description": "`object` is an object with old, new string key value pairs (e.g. {\"old1\": \"new1\", \"old2\": \"new2\", ...}). `output` is a `string` with all old strings inside `object` replaced by the new strings",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim",
+      "usage": "output := trim(x, y)",
+      "description": "`output` is a string representing string `x` with all leading and trailing instances of the characters in `y` removed",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim_left",
+      "usage": "output := trim_left(x, y)",
+      "description": "`output` is a string representing string `x` with all leading instances of the characters in `y` removed",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim_prefix",
+      "usage": "output := trim_prefix(x, y)",
+      "description": "`output` is a `string` representing string `x` with leading instance of prefix `y` removed. If `x` doesn't start with `y`, `x` is returned unchanged",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim_right",
+      "usage": "output := trim_right(x, y)",
+      "description": "`output` is a string representing string `x` with all trailing instances of the characters in `y` removed",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim_suffix",
+      "usage": "output := trim_suffix(x, y)",
+      "description": "`output` is a `string` representing string `x` with trailing instance of suffix `y` removed. If `x` doesn't end with `y`, `x` is returned unchanged",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "trim_space",
+      "usage": "output := trim_space(x)",
+      "description": "`output` is a `string` representing string `x` with all leading and trailing white space removed",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "sprintf",
+      "usage": "output := sprintf(x, array)",
+      "description": "`output` is a string representing string `x` formatted by the values in `array`",
+      "wasm_support": "SDK"
     }
   ]
 }
