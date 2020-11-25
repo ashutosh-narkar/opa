@@ -154,8 +154,38 @@
   "objects": [
     {
       "name": "object.get",
-      "usage": "output := object.get(object)",
-      "description": "`output` is the value stored by the `object` at `key`. If no value is found, `default` is returned",
+      "usage": "output := object.get(object, x, y)",
+      "description": "`output` is the value stored by the `object` at key `x`. If no value is found, the default value `y` is returned",
+      "wasm_support": "SDK"
+    },
+    {
+      "name": "object.remove",
+      "usage": "output := object.remove(object, array_or_set_or_object)",
+      "description": "`output` is a new object which is the result of removing the keys specified in `array_or_set_or_object` from `object`. The keys must be either an array, set, or object of keys",
+      "wasm_support": "SDK"
+    },
+    {
+      "name": "object.union",
+      "usage": "output := object.union(object, object)",
+      "description": "`output` is a new object which is the result of an asymmetric recursive union of two objects where conflicts are resolved by choosing the key from the right-hand object. For example: `object.union({\"a\": 1, \"b\": 2, \"c\": {\"d\": 3}}, {\"a\": 7, \"c\": {\"d\": 4, \"e\": 5}})` will result in `{\"a\": 7, \"b\": 2, \"c\": {\"d\": 4, \"e\": 5}}`",
+      "wasm_support": "SDK"
+    },
+    {
+      "name": "object.filter",
+      "usage": "output := object.filter(object, array_or_set_or_object)",
+      "description": "`output` is a new object with the remaining data from `object` with only keys specified in `array_or_set_or_object` which is an array, set, or object of keys. For example: `object.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}, \"d\": \"z\"}, [\"a\"])` will result in `{\"a\": {\"b\": \"x\", \"c\": \"y\"}}`)",
+      "wasm_support": "Native"
+    },
+    {
+      "name": "json.filter",
+      "usage": "output := json.filter(object, array_or_set)",
+      "description": "`output` is the remaining data from `object` with only keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.filter({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"b\": \"x\"}}`). Paths are not filtered in-order and are deduplicated before being evaluated",
+      "wasm_support": "SDK"
+    },
+    {
+      "name": "json.remove",
+      "usage": "output := json.remove(object, array_or_set)",
+      "description": "`output` is a new object which is the result of removing all keys specified in `array_or_set` which is an array or set of JSON string paths. For example: `json.remove({\"a\": {\"b\": \"x\", \"c\": \"y\"}}, [\"a/b\"])` will result in `{\"a\": {\"c\": \"y\"}}`. Paths are not removed in-order and are deduplicated before being evaluated",
       "wasm_support": "SDK"
     }
   ],
