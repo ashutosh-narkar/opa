@@ -151,6 +151,14 @@
       "wasm_support": "Native"
     }
   ],
+  "objects": [
+    {
+      "name": "object.get",
+      "usage": "output := object.get(object)",
+      "description": "`output` is the value stored by the `object` at `key`. If no value is found, `default` is returned",
+      "wasm_support": "SDK"
+    }
+  ],
   "sets": [
     {
       "name": "and",
