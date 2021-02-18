@@ -54,14 +54,14 @@
             {{ $scratch.Set "tutorials" 0 }}
             {{ if isset $integration "tutorials" }}
 
-              {{ $tutorials := slice }}
+              {{ $hosts := slice }}
 
               {{ range $elem := index $integration "tutorials" }}
-                {{ $url := urls.Parse $elem  }}
-                {{ $tutorials = $tutorials | append $url.Host }}
+                {{ $url := urls.Parse $elem }}
+                {{ $hosts = $hosts | append $url.Host }}
               {{ end }}
 
-              {{ $scratch.Set "tutorials" (len ($tutorials | uniq)) }}
+              {{ $scratch.Set "tutorials" (len ($hosts | uniq)) }}
             {{ end }}
 
             {{ $scratch.Set "videos" 0 }}
@@ -71,7 +71,17 @@
 
             {{ $scratch.Set "blogs" 0 }}
             {{ if isset $integration "blogs" }}
-              {{ $scratch.Set "blogs" (len (index $integration "blogs")) }}
+
+              {{ $hosts := slice }}
+
+              {{ range $elem := index $integration "blogs" }}
+                {{ $url := urls.Parse $elem }}
+                {{ $hosts = $hosts | append $url.Host }}
+              {{ end }}
+
+              {{ print ($hosts | uniq) }}
+
+              {{ $scratch.Set "blogs" (len ($hosts | uniq)) }}
             {{ end }}
 
             {{ $scratch.Set "code" 0 }}
