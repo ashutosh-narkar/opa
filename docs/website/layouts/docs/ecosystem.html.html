@@ -54,15 +54,15 @@
             {{ $scratch.Set "tutorials" 0 }}
             {{ if isset $integration "tutorials" }}
 
-              {{ $unique-tutorials := newScratch }}
+              {{ $uniqueTutorials := newScratch }}
               {{ $tutorials := index $integration "tutorials" }}
 
               {{ range $elem := $tutorials }}
                 {{ $url := urls.Parse $elem  }}
-                {{ $unique-tutorials.Set $url.Host "true" }}
+                {{ $uniqueTutorials.Set $url.Host "true" }}
               {{ end }}
 
-              {{ $scratch.Set "tutorials" (len $unique-tutorials) }}
+              {{ $scratch.Set "tutorials" (len $uniqueTutorials) }}
             {{ end }}
 
             {{ $scratch.Set "videos" 0 }}
