@@ -61,6 +61,8 @@
                 {{ $hosts = $hosts | append $url.Host }}
               {{ end }}
 
+              {{ print ($hosts | uniq) }}
+
               {{ $scratch.Set "tutorials" (len ($hosts | uniq)) }}
             {{ end }}
 
