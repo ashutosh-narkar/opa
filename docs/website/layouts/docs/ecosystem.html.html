@@ -61,8 +61,6 @@
                 {{ $hosts = $hosts | append $url.Host }}
               {{ end }}
 
-              {{ print ($hosts | uniq) }}
-
               {{ $scratch.Set "tutorials" (len ($hosts | uniq)) }}
             {{ end }}
 
@@ -80,8 +78,6 @@
                 {{ $url := urls.Parse $elem }}
                 {{ $hosts = $hosts | append $url.Host }}
               {{ end }}
-
-              {{ print ($hosts | uniq) }}
 
               {{ $scratch.Set "blogs" (len ($hosts | uniq)) }}
             {{ end }}
