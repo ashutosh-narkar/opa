@@ -53,7 +53,16 @@
             <!-- using $scratch.tutorials so that IFs can modify -->
             {{ $scratch.Set "tutorials" 0 }}
             {{ if isset $integration "tutorials" }}
-              {{ $scratch.Set "tutorials" (len (index $integration "tutorials")) }}
+
+              {{ $unique-tutorials := newScratch }}
+              {{ $tutorials := index $integration "tutorials" }}
+
+              {{ range $elem := $tutorials }}
+                {{ $url := urls.Parse $elem  }}
+                {{ $unique-tutorials.Set $url.Host "true" }}
+              {{ end }}
+
+              {{ $scratch.Set "tutorials" (len $unique-tutorials) }}
             {{ end }}
 
             {{ $scratch.Set "videos" 0 }}
