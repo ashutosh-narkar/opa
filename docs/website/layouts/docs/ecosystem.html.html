@@ -62,7 +62,7 @@
                 {{ $uniqueTutorials.Set $url.Host "true" }}
               {{ end }}
 
-              {{ $scratch.Set "tutorials" (len $uniqueTutorials) }}
+              {{ $scratch.Set "tutorials" (len $uniqueTutorials.Values) }}
             {{ end }}
 
             {{ $scratch.Set "videos" 0 }}
