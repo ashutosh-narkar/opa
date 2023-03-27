@@ -3,7 +3,42 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.51.0
+
+### Fixes
+
+- Surface unauthorized response count from OPA API authz handler ([#3378](https://github.com/open-policy-agent/opa/issues/3378)) authored by @ashutosh-narkar
+- ast/compile: Guard recursive module equality check. (#5757) ([#5756](https://github.com/open-policy-agent/opa/issues/5756)) authored by @philipaconrad
+- ast: Fixing bug where comprehensions in rule else-heads weren't rewritten correctly (#5772) ([#5771](https://github.com/open-policy-agent/opa/issues/5771)) authored by @johanfylling reported by @davidmdm
+- ast: Relaxing strict-mode check for unused args in else-branching functions (#5760) ([#5758](https://github.com/open-policy-agent/opa/issues/5758)) authored by @johanfylling reported by @ethanjli
+- bug(ast): fix the location of the unused variables (#5677) ([#5662](https://github.com/open-policy-agent/opa/issues/5662)) authored by @boranx
+- fmt: report wrong arity for built-in functions ([#5646](https://github.com/open-policy-agent/opa/issues/5646)) authored by @Trolloldem
+- plugins/rest: Include truncated HTTP response in logs ([#2961](https://github.com/open-policy-agent/opa/issues/2961)) authored by @ashutosh-narkar reported by @gshively11
+
+### Miscellaneous
+
+- Fix typo in documentation (#5755) (authored by @eternaltyro)
+- Integrate patch release v0.50.1 (#5765) (authored by @johanfylling)
+- Integrate patch release v0.50.2 (#5783) (authored by @johanfylling)
+- Prepare v0.51.0 development (authored by @ashutosh-narkar)
+- Update TLS authentication docs (authored by @charlieegan3)
+- Update debug build base images to remove openssl (#5787) (authored by @charlieegan3)
+- Update retract directive comment (#5780) (authored by @charlieegan3)
+- Use Normalized policy paths as compiler module keys and store ids (authored by @ashutosh-narkar)
+- [docs/website] Fix floating navbar anchor issue (#5775) (authored by @charlieegan3)
+- [tests] Remove testify dependency (#5762) (authored by @charlieegan3)
+- build(deps): bump actions/setup-go from 3 to 4 (#5764) (authored by @dependabot[bot])
+- build(deps): bump go.uber.org/automaxprocs from 1.5.1 to 1.5.2 (#5776) (authored by @dependabot[bot])
+- build(deps): bump google.golang.org/grpc from 1.53.0 to 1.54.0 (#5789) (authored by @dependabot[bot])
+- build(deps): bump oras.land/oras-go/v2 from 2.0.0 to 2.0.1 (#5751) (authored by @dependabot[bot])
+- build(deps): bump oras.land/oras-go/v2 from 2.0.1 to 2.0.2 (#5769) (authored by @dependabot[bot])
+- docs: Small fix to context placement in integration (#5750) (authored by @craigpastro)
+- download: copy bundle into buffer only if needed (#5767) (authored by @srenatus)
+- fix: preserve `jsonOptions` in NewAnnotationsRef (#5753) (authored by @zregvart)
+- mask: don't rely on JSON roundtrip to convert structs (#5770) (authored by @srenatus)
+- plugins/logs: don't convert EventV1 to ast.Value twice (#5761) (authored by @srenatus)
+- runtime: Remove deprecation warning for ?watch flag (authored by @tsandall)
+- wasm: Add native support for object.union_n builtin function (authored by @Azanul)
 
 ## 0.50.2
 
