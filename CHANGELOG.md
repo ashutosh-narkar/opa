@@ -3,7 +3,41 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.52.0
+
+### Fixes
+
+- Add info message when binding to 0.0.0.0 interface on server initialization ([#5090](https://github.com/open-policy-agent/opa/issues/5090)) authored by @Parsifal-M
+- Include trace and span identifier in decision logs ([#5230](https://github.com/open-policy-agent/opa/issues/5230)) authored by @ashutosh-narkar
+- ast: Disallowing partial object rules to have other partial object rule within their immediate extent (#5864) ([#5855](https://github.com/open-policy-agent/opa/issues/5855)) authored by @johanfylling
+- ast: Not allowing multi-value rules to have other rules in their extent ([#5813](https://github.com/open-policy-agent/opa/issues/5813)) authored by @johanfylling
+- docs/website: reorganize pages from misc section ([#4614](https://github.com/open-policy-agent/opa/issues/4614)) authored by @lakhanjindam
+- parse: include rule head location when requested ([#5790](https://github.com/open-policy-agent/opa/issues/5790)) authored by @Trolloldem
+- profiler: Add number of generated expr to profile o/p ([#2552](https://github.com/open-policy-agent/opa/issues/2552)) authored by @ashutosh-narkar
+- topdown/providers: Init map to operate on headers ([#5841](https://github.com/open-policy-agent/opa/issues/5841)) authored by @ashutosh-narkar
+
+### Miscellaneous
+
+- Add Reposaur (#5854) (authored by @charlieegan3)
+- Allow adding labels via discovery (authored by @mjungsbluth)
+- Clarify use cases for Compile API (authored by @charlieegan3)
+- Prepare v0.52.0 development (#5806) (authored by @johanfylling)
+- Refresh maintainers, Add gatekeeper-library maintainers (authored by @maxsmythe)
+- Update PR template structure (authored by @ashutosh-narkar)
+- [ast/inspect] Fix issue with unset annotation data (authored by @charlieegan3)
+- build(deps): bump aquasecurity/trivy-action from 0.9.2 to 0.10.0 (authored by @dependabot[bot])
+- build(deps): bump github.com/prometheus/client_golang (authored by @dependabot[bot])
+- build(deps): bump github.com/spf13/cobra from 1.6.1 to 1.7.0 (authored by @dependabot[bot])
+- build(deps): bump golang.org/x/net from 0.8.0 to 0.9.0 (authored by @dependabot[bot])
+- build: bump golang 1.20.2 -> 1.20.3 (authored by @ashutosh-narkar)
+- docs: Add Nondeterministic field to func decl (authored by @RmStorm)
+- docs: Document pre-release process (#5814) (authored by @ashutosh-narkar)
+- new logo for torque integration (#5810) (authored by @shirabendor-quali)
+- planner: fix bug in call_dynamic with overlapping ref rules (authored by @srenatus)
+- planner: fix p.curr <-> prev handling in CallDynamic optimization case (#5829) (authored by @srenatus)
+- rego: Fix printing duplication when parse errors length is 1 (authored by @)
+- runtime: Increase log level for rootless img msg (authored by @ashutosh-narkar)
+- topdown: Add built-in HMAC compare function (authored by @sandokandias)
 
 ## 0.51.0
 
