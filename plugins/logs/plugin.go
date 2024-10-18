@@ -7,6 +7,7 @@ package logs
 
 import (
 	"bytes"
+	"compress/gzip"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -416,20 +417,23 @@ func (c *Config) validateAndInjectDefaults(services []string, pluginsList []stri
 
 // Plugin implements decision log buffering and uploading.
 type Plugin struct {
-	manager      *plugins.Manager
-	config       Config
-	buffer       *logBuffer
-	enc          *chunkEncoder
-	mtx          sync.Mutex
-	statusMtx    sync.Mutex
-	stop         chan chan struct{}
-	reconfig     chan reconfigure
-	preparedMask prepareOnce
-	preparedDrop prepareOnce
-	limiter      *rate.Limiter
-	metrics      metrics.Metrics
-	logger       logging.Logger
-	status       *lstat.Status
+	manager           *plugins.Manager
+	config            Config
+	buffer            *logBuffer
+	enc               *chunkEncoder
+	mtx               sync.Mutex
+	statusMtx         sync.Mutex
+	stop              chan chan struct{}
+	reconfig          chan reconfigure
+	preparedMask      prepareOnce
+	preparedDrop      prepareOnce
+	limiter           *rate.Limiter
+	metrics           metrics.Metrics
+	logger            logging.Logger
+	status            *lstat.Status
+	ringBuffer        *ringBuffer
+	ringBufferRunning bool
+	stopRingBuffer    chan chan struct{}
 }
 
 type prepareOnce struct {
@@ -536,16 +540,18 @@ func (b *ConfigBuilder) Parse() (*Config, error) {
 func New(parsedConfig *Config, manager *plugins.Manager) *Plugin {
 
 	plugin := &Plugin{
-		manager:      manager,
-		config:       *parsedConfig,
-		stop:         make(chan chan struct{}),
-		buffer:       newLogBuffer(*parsedConfig.Reporting.BufferSizeLimitBytes),
-		enc:          newChunkEncoder(*parsedConfig.Reporting.UploadSizeLimitBytes),
-		reconfig:     make(chan reconfigure),
-		logger:       manager.Logger().WithFields(map[string]interface{}{"plugin": Name}),
-		status:       &lstat.Status{},
-		preparedDrop: *newPrepareOnce(),
-		preparedMask: *newPrepareOnce(),
+		manager:        manager,
+		config:         *parsedConfig,
+		stop:           make(chan chan struct{}),
+		buffer:         newLogBuffer(*parsedConfig.Reporting.BufferSizeLimitBytes),
+		ringBuffer:     newRingBuffer(65536), // TODO: this should be made configurable
+		stopRingBuffer: make(chan chan struct{}),
+		enc:            newChunkEncoder(*parsedConfig.Reporting.UploadSizeLimitBytes),
+		reconfig:       make(chan reconfigure),
+		logger:         manager.Logger().WithFields(map[string]interface{}{"plugin": Name}),
+		status:         &lstat.Status{},
+		preparedDrop:   *newPrepareOnce(),
+		preparedMask:   *newPrepareOnce(),
 	}
 
 	if parsedConfig.Reporting.MaxDecisionsPerSecond != nil {
@@ -556,6 +562,8 @@ func New(parsedConfig *Config, manager *plugins.Manager) *Plugin {
 	manager.RegisterCompilerTrigger(plugin.compilerUpdated)
 
 	manager.UpdatePluginStatus(Name, &plugins.Status{State: plugins.StateNotReady})
+
+	go plugin.ringBuffer.Run()
 
 	return plugin
 }
@@ -596,9 +604,18 @@ func (p *Plugin) Stop(ctx context.Context) {
 		}
 	}
 
+	// stop the ring buffer's loop
 	done := make(chan struct{})
-	p.stop <- done
+	p.stopRingBuffer <- done
 	<-done
+
+	// close the ring buffer's input channel
+	p.ringBuffer.Close()
+
+	done2 := make(chan struct{})
+	p.stop <- done2
+	<-done2
+
 	p.manager.UpdatePluginStatus(Name, &plugins.Status{State: plugins.StateNotReady})
 }
 
@@ -854,57 +871,85 @@ func (p *Plugin) doOneShot(ctx context.Context) error {
 }
 
 func (p *Plugin) oneShot(ctx context.Context) (ok bool, err error) {
-	// Make a local copy of the plugins's encoder and buffer and create
-	// a new encoder and buffer. This is needed as locking the buffer for
-	// the upload duration will block policy evaluation and result in
-	// increased latency for OPA clients
-	p.mtx.Lock()
-	oldChunkEnc := p.enc
-	oldBuffer := p.buffer
-	p.buffer = newLogBuffer(*p.config.Reporting.BufferSizeLimitBytes)
-	p.enc = newChunkEncoder(*p.config.Reporting.UploadSizeLimitBytes).WithMetrics(p.metrics)
-	p.mtx.Unlock()
-
-	// Along with uploading the compressed events in the buffer
-	// to the remote server, flush any pending compressed data to the
-	// underlying writer and add to the buffer.
-	chunk, err := oldChunkEnc.Flush()
-	if err != nil {
-		return false, err
+	if p.ringBufferRunning {
+		return
 	}
 
-	for _, ch := range chunk {
-		p.bufferChunk(oldBuffer, ch)
-	}
+	go p.readRingBuffer(ctx)
+	return
+}
 
-	if oldBuffer.Len() == 0 {
-		return false, nil
-	}
+func (p *Plugin) readRingBuffer(ctx context.Context) {
 
-	for bs := oldBuffer.Pop(); bs != nil; bs = oldBuffer.Pop() {
-		if err == nil {
-			err = uploadChunk(ctx, p.manager.Client(p.config.Service), *p.config.Resource, bs)
+	buf := new(bytes.Buffer)
+	bytesWritten := 0
+	w := gzip.NewWriter(buf)
+
+	for {
+		p.ringBufferRunning = true
+
+		var eventBytes []byte
+
+		select {
+		case x := <-p.ringBuffer.Read():
+			eventBytes = x.bs
+		case done := <-p.stopRingBuffer:
+			// TODO: Flush decisions in the buffer
+			done <- struct{}{}
+			return
 		}
-		if err != nil {
-			if p.limiter != nil {
-				events, decErr := newChunkDecoder(bs).decode()
-				if decErr != nil {
-					continue
-				}
 
-				for _, event := range events {
-					p.encodeAndBufferEvent(event)
+		if len(eventBytes) > 0 {
+			if int64(len(eventBytes)+bytesWritten+1) > *p.Config().Reporting.UploadSizeLimitBytes {
+				// upload the chunk
+				if _, err := w.Write([]byte(`]`)); err != nil {
+					p.logger.Error("Error writing to gzip writer: %v", err)
+				}
+				w.Close()
+
+				bufCpy := buf
+
+				buf = new(bytes.Buffer)
+				bytesWritten = 0
+				w = gzip.NewWriter(buf)
+
+				if bufCpy != nil {
+					err := uploadChunk(ctx, p.manager.Client(p.config.Service), *p.config.Resource, bufCpy.Bytes())
+					if err != nil {
+
+						// TODO: Requeue the events
+						p.logger.Error("Dropped chunk: %v", err)
+						panic(err)
+					}
+
+					// We're dropping an event here. This could be added back to the buffer
+					p.ringBufferRunning = false
+					return
 				}
 			} else {
-				// requeue the chunk
-				p.mtx.Lock()
-				p.bufferChunk(p.buffer, bs)
-				p.mtx.Unlock()
+				if bytesWritten == 0 {
+					n, err := w.Write([]byte(`[`))
+					if err != nil {
+						p.logger.Error("Error writing to gzip writer: %v", err)
+					}
+					bytesWritten += n
+				} else {
+					n, err := w.Write([]byte(`,`))
+					if err != nil {
+						p.logger.Error("Error writing to gzip writer: %v", err)
+					}
+					bytesWritten += n
+				}
+
+				n, err := w.Write(eventBytes)
+				if err != nil {
+					p.logger.Error("Error writing to gzip writer: %v", err)
+				}
+
+				bytesWritten += n
 			}
 		}
 	}
-
-	return err == nil, err
 }
 
 func (p *Plugin) reconfigure(config interface{}) {
@@ -935,45 +980,13 @@ func (p *Plugin) encodeAndBufferEvent(event EventV1) {
 		}
 	}
 
-	result, err := p.encodeEvent(event)
-	if err != nil {
-		// If there's no ND builtins cache in the event, then we don't
-		// need to retry encoding anything.
-		if event.NDBuiltinCache == nil {
-			// TODO(tsandall): revisit this now that we have an API that
-			// can return an error. Should the default behaviour be to
-			// fail-closed as we do for plugins?
-
-			if p.metrics != nil {
-				p.metrics.Counter(logEncodingFailureCounterName).Incr()
-			}
-			p.logger.Error("Log encoding failed: %v.", err)
-			return
-		}
-
-		// Attempt to encode the event again, dropping the ND builtins cache.
-		newEvent := event
-		newEvent.NDBuiltinCache = nil
-
-		result, err = p.encodeEvent(newEvent)
-		if err != nil {
-			if p.metrics != nil {
-				p.metrics.Counter(logEncodingFailureCounterName).Incr()
-			}
-			p.logger.Error("Log encoding failed: %v.", err)
-			return
-		}
-
-		// Re-encoding was successful, but we still need to alert users.
-		p.logger.Error("ND builtins cache dropped from this event to fit under maximum upload size limits. Increase upload size limit or change usage of non-deterministic builtins.")
-		p.metrics.Counter(logNDBDropCounterName).Incr()
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(event); err != nil {
+		panic(err)
+		return
 	}
 
-	p.mtx.Lock()
-	defer p.mtx.Unlock()
-	for _, chunk := range result {
-		p.bufferChunk(p.buffer, chunk)
-	}
+	p.ringBuffer.Push(buf.Bytes())
 }
 
 func (p *Plugin) encodeEvent(event EventV1) ([][]byte, error) {
